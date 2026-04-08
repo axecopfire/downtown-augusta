@@ -73,7 +73,7 @@ These issues fundamentally prevent the site from serving its purpose. Users will
 
 These significantly degrade the user experience but don't completely block core tasks.
 
-### BACKLOG-005: Category-Distinct Map Marker Icons
+### BACKLOG-005: Category-Distinct Map Marker Icons ✅ COMPLETE
 **Reported by:** Derek (shopper), Tamika (blogger), Priya (tourist)
 **Raw reports:** BUG-003-no-way-to-identify-business-type, FEATURE-001-map-markers-need-distinct-icons, FEATURE-002-business-markers-need-category-specific
 
@@ -95,7 +95,7 @@ These significantly degrade the user experience but don't completely block core 
 
 ---
 
-### BACKLOG-007: Homepage Featured Events & Search
+### BACKLOG-007: Homepage Featured Events & Search ✅ COMPLETE
 **Reported by:** Priya (tourist), Derek (shopper), Martha (owner)
 **Raw reports:** FEATURE-001-homepage-needs-featured-upcoming-events, FEATURE-001-homepage-lacks-category-quick-links, FEATURE-001-homepage-needs-a-search-bar
 
@@ -109,7 +109,7 @@ These significantly degrade the user experience but don't completely block core 
 
 ---
 
-### BACKLOG-008: Enrich Map Popup Content
+### BACKLOG-008: Enrich Map Popup Content ✅ COMPLETE
 **Reported by:** Martha (owner), Tamika (blogger), Priya (tourist)
 **Raw reports:** FEATURE-006-map-popups-lack-business-hours-photos, FEATURE-002-restaurant-map-popups-lack-social-media
 
@@ -131,7 +131,7 @@ These significantly degrade the user experience but don't completely block core 
 
 ---
 
-### BACKLOG-010: Open/Closed Status Indicator
+### BACKLOG-010: Open/Closed Status Indicator ✅ COMPLETE
 **Reported by:** Derek (shopper)
 **Raw reports:** FEATURE-006-no-real-time-open-closed-status
 
@@ -145,7 +145,7 @@ These significantly degrade the user experience but don't completely block core 
 
 ---
 
-### BACKLOG-011: Many-to-Many Event-Business Relationships
+### BACKLOG-011: Many-to-Many Event-Business Relationships ✅ COMPLETE
 **Reported by:** Carlos (organizer)
 **Raw reports:** FEATURE-002-many-to-many-event-business-relationships
 
@@ -159,7 +159,7 @@ These significantly degrade the user experience but don't completely block core 
 
 ---
 
-### BACKLOG-012: Fix Mobile Usability
+### BACKLOG-012: Fix Mobile Usability ✅ COMPLETE
 **Reported by:** Derek (shopper)
 **Raw reports:** BUG-007-mobile-usability-issues
 
