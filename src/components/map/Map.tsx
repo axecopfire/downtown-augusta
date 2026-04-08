@@ -31,6 +31,7 @@ interface BusinessWithPosts {
   facebookUrl: string | null;
   instagramUrl: string | null;
   socialPosts?: SocialPostData[];
+  events?: { id: string; title: string; startDate: string; startTime: string | null }[];
 }
 
 const platformColors: Record<string, string> = {
@@ -78,7 +79,52 @@ function createColoredIcon(color: string) {
   });
 }
 
-const businessIcon = createColoredIcon("#2563eb"); // blue-600
+const CATEGORY_COLORS: Record<string, string> = {
+  restaurant: "#dc2626", // red
+  bar: "#7c3aed",        // purple
+  retail: "#2563eb",     // blue
+  service: "#0891b2",    // cyan
+  entertainment: "#d97706", // amber
+  hotel: "#059669",      // emerald
+  general: "#6b7280",    // gray
+};
+
+const CATEGORY_EMOJI: Record<string, string> = {
+  restaurant: "🍽️",
+  bar: "🍸",
+  retail: "🛍️",
+  service: "🔧",
+  entertainment: "🎭",
+  hotel: "🏨",
+  general: "📍",
+};
+
+function createCategoryIcon(category: string) {
+  const color = CATEGORY_COLORS[category] ?? CATEGORY_COLORS.general;
+  const emoji = CATEGORY_EMOJI[category] ?? CATEGORY_EMOJI.general;
+  return L.divIcon({
+    className: "",
+    html: `
+      <svg width="25" height="41" viewBox="0 0 25 41" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12.5 0C5.6 0 0 5.6 0 12.5C0 21.9 12.5 41 12.5 41S25 21.9 25 12.5C25 5.6 19.4 0 12.5 0Z" fill="${color}" stroke="#fff" stroke-width="1.5"/>
+        <circle cx="12.5" cy="12.5" r="5.5" fill="#fff"/>
+      </svg>
+      <span style="position:absolute;top:3px;left:4px;font-size:11px;line-height:1;pointer-events:none;">${emoji}</span>
+    `,
+    iconSize: [25, 41],
+    iconAnchor: [12, 41],
+    popupAnchor: [0, -35],
+  });
+}
+
+const categoryIconCache: Record<string, L.DivIcon> = {};
+function getCategoryIcon(category: string): L.DivIcon {
+  if (!categoryIconCache[category]) {
+    categoryIconCache[category] = createCategoryIcon(category);
+  }
+  return categoryIconCache[category];
+}
+
 const impactIcons = {
   low: createColoredIcon("#16a34a"),    // green-600
   medium: createColoredIcon("#ea580c"), // orange-600
@@ -145,7 +191,7 @@ export default function Map({ businesses = [], events = [] }: MapProps) {
           <Marker
             key={`biz-${biz.id}`}
             position={[biz.latitude, biz.longitude]}
-            icon={businessIcon}
+            icon={getCategoryIcon(biz.category)}
           >
             <Popup>
               <div className="min-w-[200px] max-w-[280px] text-sm">
@@ -236,6 +282,17 @@ export default function Map({ businesses = [], events = [] }: MapProps) {
                       </div>
                     ))}
                   </>
+                )}
+                {biz.events && biz.events.length > 0 && (
+                  <div className="mt-1.5 rounded bg-teal-50 px-2 py-1.5">
+                    <p className="text-[11px] font-semibold text-teal-800">📅 Next Event</p>
+                    <p className="text-xs text-teal-700">
+                      {biz.events[0].title}
+                      {" · "}
+                      {new Date(biz.events[0].startDate).toLocaleDateString("en-US", { month: "short", day: "numeric" })}
+                      {biz.events[0].startTime && ` at ${biz.events[0].startTime}`}
+                    </p>
+                  </div>
                 )}
                 <div className="mt-2 pt-2 border-t border-gray-100">
                   <a
