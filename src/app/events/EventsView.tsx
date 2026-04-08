@@ -217,7 +217,7 @@ export default function EventsView({ events }: { events: EventWithBusiness[] }) 
               <p className="mb-6 text-sm text-gray-500">
                 Showing {filtered.length} event{filtered.length !== 1 && "s"}
               </p>
-              <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
                 {filtered.map((event) => (
                   <EventCard key={event.id} event={event} />
                 ))}
@@ -235,7 +235,7 @@ function EventCard({ event }: { event: EventWithBusiness }) {
   const endStr = event.endDate as unknown as string | null;
 
   return (
-    <article className="flex flex-col rounded-xl bg-white p-6 shadow-sm ring-1 ring-gray-200 transition-shadow hover:shadow-md">
+    <article className="flex flex-col overflow-hidden rounded-xl bg-white p-6 shadow-sm ring-1 ring-gray-200 transition-shadow hover:shadow-md">
       {/* Category & impact badges */}
       <div className="flex items-center gap-2">
         <span className="rounded-full bg-teal-50 px-2.5 py-1 text-xs font-medium capitalize text-teal-700">

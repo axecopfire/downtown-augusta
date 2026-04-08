@@ -195,7 +195,7 @@ export default function Map({ businesses = [], events = [] }: MapProps) {
             icon={getCategoryIcon(biz.category)}
           >
             <Popup>
-              <div className="min-w-[200px] max-w-[280px] text-sm">
+              <div className="min-w-[200px] max-w-[250px] sm:max-w-[280px] text-sm">
                 <h3 className="font-bold text-base mb-1">{biz.name}</h3>
                 <p className="text-gray-500 text-xs uppercase tracking-wide mb-1">
                   {biz.category}
@@ -328,7 +328,7 @@ export default function Map({ businesses = [], events = [] }: MapProps) {
           const positions = parsePolygon(evt.polygon);
 
           const popupContent = (
-            <div className="min-w-[200px] text-sm">
+            <div className="min-w-[200px] max-w-[250px] sm:max-w-[280px] text-sm">
               <h3 className="font-bold text-base mb-1">{evt.title}</h3>
               <p className="text-gray-500 text-xs uppercase tracking-wide mb-1">
                 {evt.category} · Impact: {evt.impactLevel}

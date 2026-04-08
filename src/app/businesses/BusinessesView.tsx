@@ -138,11 +138,11 @@ export default function BusinessesView({ businesses }: BusinessesViewProps) {
               </p>
             </div>
           ) : (
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {filtered.map((biz) => (
                 <div
                   key={biz.id}
-                  className="rounded-xl bg-white p-6 shadow-sm ring-1 ring-gray-200 hover:shadow-md transition"
+                  className="overflow-hidden rounded-xl bg-white p-6 shadow-sm ring-1 ring-gray-200 hover:shadow-md transition"
                 >
                   <Link
                     href={`/businesses/${biz.id}`}
@@ -158,7 +158,7 @@ export default function BusinessesView({ businesses }: BusinessesViewProps) {
                   <div className="mt-3 space-y-1.5 text-sm text-gray-600">
                     <p className="flex items-center gap-1.5">
                       <MapPin className="h-3.5 w-3.5 shrink-0 text-gray-400" />
-                      {biz.address}
+                      <span className="truncate">{biz.address}</span>
                     </p>
                     {biz.phone && (
                       <p className="flex items-center gap-1.5">

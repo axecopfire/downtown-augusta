@@ -119,7 +119,7 @@ export default async function BusinessDetailPage({
                 href={business.website}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 rounded-full bg-white px-4 py-2 text-sm font-medium text-teal-800 shadow hover:bg-gray-50 transition"
+                className="inline-flex items-center gap-1.5 rounded-full bg-white px-4 py-2 text-sm font-medium text-teal-800 shadow hover:bg-gray-50 transition min-h-[44px]"
               >
                 <Globe className="h-4 w-4" />
                 Website
@@ -129,7 +129,7 @@ export default async function BusinessDetailPage({
               href={directionsUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 rounded-full bg-amber-500 px-4 py-2 text-sm font-medium text-white shadow hover:bg-amber-600 transition"
+              className="inline-flex items-center gap-1.5 rounded-full bg-amber-500 px-4 py-2 text-sm font-medium text-white shadow hover:bg-amber-600 transition min-h-[44px]"
             >
               <Navigation className="h-4 w-4" />
               Get Directions
@@ -139,7 +139,7 @@ export default async function BusinessDetailPage({
                 href={business.facebookUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 rounded-full bg-white/20 px-4 py-2 text-sm font-medium text-white backdrop-blur hover:bg-white/30 transition"
+                className="inline-flex items-center gap-1.5 rounded-full bg-white/20 px-4 py-2 text-sm font-medium text-white backdrop-blur hover:bg-white/30 transition min-h-[44px]"
               >
                 <FaFacebook className="h-4 w-4" />
                 Facebook
@@ -150,7 +150,7 @@ export default async function BusinessDetailPage({
                 href={business.instagramUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 rounded-full bg-white/20 px-4 py-2 text-sm font-medium text-white backdrop-blur hover:bg-white/30 transition"
+                className="inline-flex items-center gap-1.5 rounded-full bg-white/20 px-4 py-2 text-sm font-medium text-white backdrop-blur hover:bg-white/30 transition min-h-[44px]"
               >
                 <FaInstagram className="h-4 w-4" />
                 Instagram
@@ -162,14 +162,14 @@ export default async function BusinessDetailPage({
 
       {/* Content */}
       <section className="flex-1 bg-gray-50 px-4 py-8">
-        <div className="mx-auto grid max-w-5xl gap-8 lg:grid-cols-3">
+        <div className="mx-auto grid max-w-5xl gap-8 grid-cols-1 lg:grid-cols-3">
           {/* Main column */}
           <div className="space-y-8 lg:col-span-2">
             {/* Description */}
             {business.description && (
               <div className="rounded-xl bg-white p-6 shadow-sm ring-1 ring-gray-200">
                 <h2 className="text-lg font-semibold text-gray-900">About</h2>
-                <p className="mt-2 text-sm leading-relaxed text-gray-600">
+                <p className="mt-2 text-sm leading-relaxed text-gray-600 break-words">
                   {business.description}
                 </p>
               </div>
@@ -272,7 +272,7 @@ export default async function BusinessDetailPage({
                 />
               </div>
               <div className="p-4">
-                <p className="text-sm text-gray-600">{business.address}</p>
+                <p className="text-sm text-gray-600 break-words">{business.address}</p>
                 <a
                   href={directionsUrl}
                   target="_blank"

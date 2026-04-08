@@ -66,7 +66,7 @@ export default function Header() {
                 key={href}
                 href={href}
                 onClick={() => setMobileOpen(false)}
-                className={`flex items-center gap-2 px-4 py-2 text-sm font-medium transition-colors ${
+                className={`flex items-center gap-2 px-4 py-3 text-sm font-medium transition-colors ${
                   active
                     ? "bg-teal-700 text-white"
                     : "text-teal-100 hover:bg-teal-700/60 hover:text-white"

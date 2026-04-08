@@ -340,7 +340,7 @@ export default function MapView({ businesses, events }: MapViewProps) {
       <aside
         className={`${
           sidebarOpen ? "translate-x-0" : "-translate-x-full"
-        } absolute inset-y-0 left-0 z-[999] w-80 bg-white shadow-xl transition-transform duration-200 md:relative md:translate-x-0 md:shadow-none md:border-r md:border-gray-200 flex flex-col`}
+        } absolute inset-y-0 left-0 z-[999] w-[85vw] max-w-80 bg-white shadow-xl transition-transform duration-200 md:relative md:w-80 md:max-w-none md:translate-x-0 md:shadow-none md:border-r md:border-gray-200 flex flex-col`}
       >
         {/* Sidebar header */}
         <div className="flex items-center justify-between border-b border-gray-200 px-4 py-3">

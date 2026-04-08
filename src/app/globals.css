@@ -24,3 +24,14 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* Constrain Leaflet popups on mobile */
+@media (max-width: 640px) {
+  .leaflet-popup-content {
+    max-width: 250px !important;
+    margin: 8px !important;
+  }
+  .leaflet-popup-content-wrapper {
+    max-width: 280px !important;
+  }
+}

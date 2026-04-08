@@ -132,9 +132,9 @@ export default async function Home() {
                 View all events →
               </Link>
             </div>
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {upcomingEvents.map((event) => (
-                <div key={event.id} className="rounded-xl bg-white p-5 shadow-sm ring-1 ring-gray-200">
+                <div key={event.id} className="overflow-hidden rounded-xl bg-white p-5 shadow-sm ring-1 ring-gray-200">
                   <div className="flex items-center gap-2 text-xs text-gray-500 mb-2">
                     <Calendar className="h-3.5 w-3.5" />
                     <span>
@@ -142,9 +142,9 @@ export default async function Home() {
                       {event.startTime && ` · ${event.startTime}`}
                     </span>
                   </div>
-                  <h3 className="font-semibold text-gray-900">{event.title}</h3>
+                  <h3 className="font-semibold text-gray-900 line-clamp-2">{event.title}</h3>
                   {event.description && (
-                    <p className="mt-1 text-sm text-gray-600 line-clamp-2">{event.description}</p>
+                    <p className="mt-1 text-sm text-gray-600 line-clamp-2 break-words">{event.description}</p>
                   )}
                   <div className="mt-3 flex items-center gap-2 text-xs text-gray-500">
                     <MapPin className="h-3.5 w-3.5 shrink-0" />
