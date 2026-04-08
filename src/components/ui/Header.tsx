@@ -8,7 +8,7 @@ import { Map, Calendar, Store, Menu, X } from "lucide-react";
 const navLinks = [
   { href: "/", label: "Map", icon: Map },
   { href: "/events", label: "Events", icon: Calendar },
-  { href: "/admin/businesses", label: "Businesses", icon: Store },
+  { href: "/businesses", label: "Businesses", icon: Store },
 ] as const;
 
 export default function Header() {

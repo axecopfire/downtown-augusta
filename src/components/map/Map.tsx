@@ -237,6 +237,14 @@ export default function Map({ businesses = [], events = [] }: MapProps) {
                     ))}
                   </>
                 )}
+                <div className="mt-2 pt-2 border-t border-gray-100">
+                  <a
+                    href={`/businesses/${biz.id}`}
+                    className="inline-flex items-center gap-1 text-xs font-medium text-teal-600 hover:text-teal-800"
+                  >
+                    View Details →
+                  </a>
+                </div>
               </div>
             </Popup>
           </Marker>

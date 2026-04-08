@@ -7,7 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "db:seed": "npx tsx prisma/seed.ts"
+    "db:seed": "npx tsx prisma/seed.ts",
+    "test:e2e": "playwright test --config=e2e/playwright.config.ts",
+    "test:e2e:list": "playwright test --config=e2e/playwright.config.ts --list"
   },
   "prisma": {
     "seed": "npx tsx prisma/seed.ts"
@@ -23,9 +25,11 @@
     "prisma": "^7.7.0",
     "react": "19.2.4",
     "react-dom": "19.2.4",
+    "react-icons": "^5.6.0",
     "react-leaflet": "^5.0.0"
   },
   "devDependencies": {
+    "@playwright/test": "^1.59.1",
     "@tailwindcss/postcss": "^4",
     "@types/better-sqlite3": "^7.6.13",
     "@types/leaflet": "^1.9.21",
