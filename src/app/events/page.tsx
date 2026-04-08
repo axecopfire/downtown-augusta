@@ -10,7 +10,10 @@ export const metadata = {
 export default async function EventsPage() {
   const events = await prisma.event.findMany({
     orderBy: { startDate: "asc" },
-    include: { business: true },
+    include: {
+      business: true,
+      eventBusinesses: { include: { business: true } },
+    },
   });
 
   return <EventsView events={JSON.parse(JSON.stringify(events))} />;

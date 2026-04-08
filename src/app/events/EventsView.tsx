@@ -6,9 +6,14 @@ import { Calendar, MapPin, Clock, ExternalLink, Search } from "lucide-react";
 import ImpactBadge from "@/components/ui/ImpactBadge";
 import { EVENT_CATEGORIES } from "@/lib/constants";
 import type { ImpactLevel } from "@/lib/constants";
-import type { Business, Event } from "@/generated/prisma/client";
+import type { Business, Event, EventBusiness } from "@/generated/prisma/client";
 
-type EventWithBusiness = Event & { business: Business | null };
+type EventBusinessWithBusiness = EventBusiness & { business: Business };
+
+type EventWithBusiness = Event & {
+  business: Business | null;
+  eventBusinesses?: EventBusinessWithBusiness[];
+};
 
 type DatePreset = "today" | "this-week" | "this-weekend" | "all";
 
@@ -271,17 +276,35 @@ function EventCard({ event }: { event: EventWithBusiness }) {
       )}
 
       {/* Footer: business + website */}
-      <div className="mt-auto flex flex-wrap items-center gap-3 pt-4 text-sm">
+      <div className="mt-auto flex flex-col gap-2 pt-4 text-sm">
         {event.business && (
           <span className="text-gray-500">
             Hosted by{" "}
             <Link
-              href={`/admin/businesses/${event.business.id}/edit`}
+              href={`/businesses/${event.business.id}`}
               className="font-medium text-teal-700 hover:underline"
             >
               {event.business.name}
             </Link>
           </span>
+        )}
+        {event.eventBusinesses && event.eventBusinesses.length > 0 && (
+          <div className="text-gray-500">
+            <span className="text-xs font-medium uppercase tracking-wide text-gray-400">
+              Participating Businesses
+            </span>
+            <div className="mt-1 flex flex-wrap gap-1.5">
+              {event.eventBusinesses.map((eb) => (
+                <Link
+                  key={eb.businessId}
+                  href={`/businesses/${eb.businessId}`}
+                  className="inline-block rounded-full bg-teal-50 px-2.5 py-0.5 text-xs font-medium text-teal-700 hover:bg-teal-100 transition-colors"
+                >
+                  {eb.business.name}
+                </Link>
+              ))}
+            </div>
+          </div>
         )}
         {event.website && (
           <a

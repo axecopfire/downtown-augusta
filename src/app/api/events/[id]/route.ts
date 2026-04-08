@@ -59,6 +59,27 @@ export async function PUT(request: NextRequest, context: RouteContext) {
 
   try {
     const updated = await prisma.event.update({ where: { id }, data });
+
+    // Sync EventBusiness join record when businessId changes
+    if (body.businessId !== undefined) {
+      if (body.businessId === null && existing.businessId) {
+        await prisma.eventBusiness.deleteMany({
+          where: { eventId: id, businessId: existing.businessId },
+        });
+      } else if (body.businessId) {
+        await prisma.eventBusiness.upsert({
+          where: {
+            eventId_businessId: {
+              eventId: id,
+              businessId: body.businessId as string,
+            },
+          },
+          create: { eventId: id, businessId: body.businessId as string },
+          update: {},
+        });
+      }
+    }
+
     return NextResponse.json(updated);
   } catch (err) {
     const message = err instanceof Error ? err.message : "Failed to update event";

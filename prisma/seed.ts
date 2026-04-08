@@ -11,7 +11,8 @@ const prisma = new PrismaClient({ adapter });
 async function main() {
   console.log("🌱 Seeding database…");
 
-  // Clear existing data (order matters: socialPosts → events → businesses)
+  // Clear existing data (order matters: eventBusinesses → socialPosts → events → businesses)
+  await prisma.eventBusiness.deleteMany();
   await prisma.socialPost.deleteMany();
   await prisma.event.deleteMany();
   await prisma.business.deleteMany();
@@ -455,6 +456,51 @@ async function main() {
     ],
   });
   console.log("  Created 6 social posts.");
+
+  // --- EventBusiness join records (many-to-many) ---
+  const allEvents = await prisma.event.findMany();
+  const allBusinesses = await prisma.business.findMany();
+
+  const foodTruckRally = allEvents.find((e) => e.title.includes("Food Truck"));
+  const firstFriday = allEvents.find((e) =>
+    e.title.includes("First Friday Downtown"),
+  );
+  const saturdayMarket = allEvents.find((e) =>
+    e.title.includes("Saturday Market"),
+  );
+  const restaurants = allBusinesses.filter((b) =>
+    ["restaurant", "bar"].includes(b.category),
+  );
+
+  let ebCount = 0;
+
+  if (foodTruckRally && restaurants.length > 0) {
+    for (const biz of restaurants.slice(0, 5)) {
+      await prisma.eventBusiness.create({
+        data: { eventId: foodTruckRally.id, businessId: biz.id },
+      });
+      ebCount++;
+    }
+  }
+  if (firstFriday) {
+    for (const biz of allBusinesses.slice(0, 4)) {
+      await prisma.eventBusiness.create({
+        data: { eventId: firstFriday.id, businessId: biz.id },
+      });
+      ebCount++;
+    }
+  }
+  if (saturdayMarket) {
+    for (const biz of allBusinesses
+      .filter((b) => b.category === "retail")
+      .slice(0, 3)) {
+      await prisma.eventBusiness.create({
+        data: { eventId: saturdayMarket.id, businessId: biz.id },
+      });
+      ebCount++;
+    }
+  }
+  console.log(`  Created ${ebCount} event-business links.`);
 
   console.log("✅ Seed complete!");
 }
