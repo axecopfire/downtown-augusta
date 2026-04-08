@@ -1,11 +1,16 @@
 import Link from "next/link";
 import { prisma } from "@/lib/prisma";
-import { Plus, Pencil, Store } from "lucide-react";
+import { Plus, Pencil, Store, Calendar, Rss } from "lucide-react";
 import DeleteBusinessButton from "@/components/ui/DeleteBusinessButton";
 
 export default async function BusinessListPage() {
   const businesses = await prisma.business.findMany({
     orderBy: { name: "asc" },
+    include: {
+      _count: {
+        select: { events: true, socialPosts: true },
+      },
+    },
   });
 
   return (
@@ -46,6 +51,9 @@ export default async function BusinessListPage() {
                 <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">
                   Category
                 </th>
+                <th className="px-4 py-3 text-center text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                  Events / Posts
+                </th>
                 <th className="px-4 py-3 text-right text-xs font-semibold text-gray-500 uppercase tracking-wider">
                   Actions
                 </th>
@@ -63,6 +71,16 @@ export default async function BusinessListPage() {
                   <td className="px-4 py-3 text-sm text-gray-600 whitespace-nowrap">
                     <span className="inline-flex items-center rounded-full bg-gray-100 px-2.5 py-0.5 text-xs font-medium text-gray-700 capitalize">
                       {biz.category}
+                    </span>
+                  </td>
+                  <td className="px-4 py-3 text-sm text-center whitespace-nowrap">
+                    <span className="inline-flex items-center gap-1 text-gray-600 mr-3" title="Events">
+                      <Calendar className="h-3.5 w-3.5" />
+                      {biz._count.events}
+                    </span>
+                    <span className="inline-flex items-center gap-1 text-gray-600" title="Social Posts">
+                      <Rss className="h-3.5 w-3.5" />
+                      {biz._count.socialPosts}
                     </span>
                   </td>
                   <td className="px-4 py-3 text-sm text-right whitespace-nowrap">

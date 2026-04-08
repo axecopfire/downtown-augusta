@@ -9,7 +9,17 @@ export const metadata = {
 
 export default async function MapPage() {
   const [businesses, events] = await Promise.all([
-    prisma.business.findMany({ orderBy: { name: "asc" } }),
+    prisma.business.findMany({
+      orderBy: { name: "asc" },
+      include: {
+        socialPosts: { orderBy: { postedAt: "desc" } },
+        events: {
+          where: { startDate: { gte: new Date() } },
+          orderBy: { startDate: "asc" },
+          take: 1,
+        },
+      },
+    }),
     prisma.event.findMany({ orderBy: { startDate: "asc" } }),
   ]);
 

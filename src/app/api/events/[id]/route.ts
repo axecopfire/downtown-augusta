@@ -45,10 +45,25 @@ export async function PUT(request: NextRequest, context: RouteContext) {
   if (body.imageUrl !== undefined) data.imageUrl = body.imageUrl;
   if (body.website !== undefined) data.website = body.website;
   if (body.polygon !== undefined) data.polygon = body.polygon;
+  if (body.businessId !== undefined) {
+    if (body.businessId === null) {
+      data.businessId = null;
+    } else {
+      const business = await prisma.business.findUnique({ where: { id: body.businessId as string } });
+      if (!business) {
+        return NextResponse.json({ error: "Business not found" }, { status: 404 });
+      }
+      data.businessId = body.businessId;
+    }
+  }
 
-  const updated = await prisma.event.update({ where: { id }, data });
-
-  return NextResponse.json(updated);
+  try {
+    const updated = await prisma.event.update({ where: { id }, data });
+    return NextResponse.json(updated);
+  } catch (err) {
+    const message = err instanceof Error ? err.message : "Failed to update event";
+    return NextResponse.json({ error: message }, { status: 500 });
+  }
 }
 
 export async function DELETE(_request: NextRequest, context: RouteContext) {
@@ -59,7 +74,11 @@ export async function DELETE(_request: NextRequest, context: RouteContext) {
     return NextResponse.json({ error: "Event not found" }, { status: 404 });
   }
 
-  await prisma.event.delete({ where: { id } });
-
-  return new NextResponse(null, { status: 204 });
+  try {
+    await prisma.event.delete({ where: { id } });
+    return new NextResponse(null, { status: 204 });
+  } catch (err) {
+    const message = err instanceof Error ? err.message : "Failed to delete event";
+    return NextResponse.json({ error: message }, { status: 500 });
+  }
 }

@@ -12,6 +12,7 @@ export async function GET(request: NextRequest) {
     const businesses = await prisma.business.findMany({
       where,
       orderBy: { name: "asc" },
+      include: { _count: { select: { events: true, socialPosts: true } } },
     });
 
     return NextResponse.json(businesses);

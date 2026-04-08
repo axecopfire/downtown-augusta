@@ -7,7 +7,10 @@ type RouteParams = { params: Promise<{ id: string }> };
 export async function GET(_request: NextRequest, { params }: RouteParams) {
   try {
     const { id } = await params;
-    const business = await prisma.business.findUnique({ where: { id } });
+    const business = await prisma.business.findUnique({
+      where: { id },
+      include: { _count: { select: { events: true, socialPosts: true } } },
+    });
 
     if (!business) {
       return NextResponse.json(

@@ -13,6 +13,7 @@ import {
 import { FaFacebook, FaInstagram } from "react-icons/fa";
 import type { Metadata } from "next";
 import BusinessDetailMap from "./BusinessDetailMap";
+import OpenStatusBadge from "@/components/ui/OpenStatusBadge";
 
 export async function generateMetadata({
   params,
@@ -85,9 +86,12 @@ export default async function BusinessDetailPage({
           <span className="inline-flex items-center rounded-full bg-white/20 px-3 py-0.5 text-xs font-medium capitalize backdrop-blur">
             {business.category}
           </span>
-          <h1 className="mt-3 text-3xl font-extrabold tracking-tight sm:text-4xl">
-            {business.name}
-          </h1>
+          <div className="mt-3 flex items-center gap-3">
+            <h1 className="text-3xl font-extrabold tracking-tight sm:text-4xl">
+              {business.name}
+            </h1>
+            <OpenStatusBadge hours={business.hours} />
+          </div>
 
           <div className="mt-4 flex flex-wrap items-center gap-4 text-sm text-teal-100">
             <span className="flex items-center gap-1.5">

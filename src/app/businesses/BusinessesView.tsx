@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import { FaFacebook, FaInstagram } from "react-icons/fa";
 import { BUSINESS_CATEGORIES } from "@/lib/constants";
+import OpenStatusBadge from "@/components/ui/OpenStatusBadge";
 
 interface SerializedBusiness {
   id: string;
@@ -166,10 +167,11 @@ export default function BusinessesView({ businesses }: BusinessesViewProps) {
                       </p>
                     )}
                     {biz.hours && (
-                      <p className="flex items-center gap-1.5">
+                      <div className="flex items-center gap-1.5">
                         <Clock className="h-3.5 w-3.5 shrink-0 text-gray-400" />
-                        {biz.hours}
-                      </p>
+                        <span>{biz.hours}</span>
+                        <OpenStatusBadge hours={biz.hours} />
+                      </div>
                     )}
                   </div>
 

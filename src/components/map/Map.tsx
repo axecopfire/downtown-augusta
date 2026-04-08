@@ -6,6 +6,7 @@ import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 
 import { DOWNTOWN_AUGUSTA_CENTER, DEFAULT_ZOOM } from "@/lib/constants";
+import { isOpenNow } from "@/lib/hours";
 import type { Event } from "@/generated/prisma/client";
 import { Legend } from "./Legend";
 
@@ -199,6 +200,18 @@ export default function Map({ businesses = [], events = [] }: MapProps) {
                 <p className="text-gray-500 text-xs uppercase tracking-wide mb-1">
                   {biz.category}
                 </p>
+                {(() => {
+                  const open = isOpenNow(biz.hours);
+                  if (open === null) return null;
+                  return (
+                    <span className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-medium mb-1 ${
+                      open ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"
+                    }`}>
+                      <span className={`h-1.5 w-1.5 rounded-full ${open ? "bg-green-500" : "bg-red-500"}`} />
+                      {open ? "Open Now" : "Closed"}
+                    </span>
+                  );
+                })()}
                 {biz.address && <p className="mb-1">📍 {biz.address}</p>}
                 {biz.latitude && biz.longitude && (
                   <p className="mb-1">

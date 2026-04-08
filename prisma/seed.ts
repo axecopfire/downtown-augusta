@@ -11,130 +11,163 @@ const prisma = new PrismaClient({ adapter });
 async function main() {
   console.log("🌱 Seeding database…");
 
-  // Clear existing data
+  // Clear existing data (order matters: socialPosts → events → businesses)
+  await prisma.socialPost.deleteMany();
   await prisma.event.deleteMany();
   await prisma.business.deleteMany();
   console.log("  Cleared existing data.");
 
-  // --- Businesses ---
-  const businesses = await prisma.business.createMany({
-    data: [
-      {
-        name: "Boll Weevil Café & Sweetery",
-        description:
-          "Iconic downtown café known for its massive desserts and Southern comfort food.",
-        address: "10 James Brown Blvd, Augusta, GA 30901",
-        latitude: 33.4741,
-        longitude: -81.9694,
-        category: "restaurant",
-        phone: "(706) 722-7772",
-        website: "https://www.bollweevilcafe.com",
-        hours: "Mon-Sat 11am-10pm",
-      },
-      {
-        name: "Craft & Vine",
-        description:
-          "Upscale gastropub featuring craft cocktails and a rotating menu of locally sourced dishes.",
-        address: "1002 Broad St, Augusta, GA 30901",
-        latitude: 33.4738,
-        longitude: -81.9735,
-        category: "bar",
-        phone: "(706) 364-5300",
-        hours: "Tue-Sat 5pm-12am",
-      },
-      {
-        name: "Frog Hollow Tavern",
-        description:
-          "Farm-to-table dining in a historic building with an award-winning wine list.",
-        address: "1282 Broad St, Augusta, GA 30901",
-        latitude: 33.4744,
-        longitude: -81.9761,
-        category: "restaurant",
-        phone: "(706) 364-6906",
-        website: "https://www.froghollowtavern.com",
-        hours: "Tue-Sat 5:30pm-10pm",
-      },
-      {
-        name: "Soul Bar",
-        description:
-          "Live music venue and bar in the heart of Broad Street's entertainment district.",
-        address: "984 Broad St, Augusta, GA 30901",
-        latitude: 33.4736,
-        longitude: -81.9728,
-        category: "entertainment",
-        phone: "(706) 481-9540",
-        hours: "Wed-Sat 7pm-2am",
-      },
-      {
-        name: "The Book Tavern",
-        description:
-          "Independent bookstore offering new and used books, local authors, and community events.",
-        address: "226 8th St, Augusta, GA 30901",
-        latitude: 33.4750,
-        longitude: -81.9720,
-        category: "retail",
-        phone: "(706) 828-3600",
-        hours: "Mon-Sat 10am-6pm, Sun 12pm-5pm",
-      },
-      {
-        name: "New Moon Café",
-        description:
-          "Eclectic café with live music, art displays, and a diverse menu including vegetarian options.",
-        address: "1036 Broad St, Augusta, GA 30901",
-        latitude: 33.4740,
-        longitude: -81.9742,
-        category: "restaurant",
-        phone: "(706) 725-5005",
-        hours: "Mon-Sat 11am-10pm",
-      },
-      {
-        name: "Augusta Museum of History",
-        description:
-          "Museum showcasing Augusta's rich history from Native Americans to the present, including a James Brown exhibit.",
-        address: "560 Reynolds St, Augusta, GA 30901",
-        latitude: 33.4758,
-        longitude: -81.9700,
-        category: "entertainment",
-        phone: "(706) 722-8454",
-        website: "https://www.augustamuseum.org",
-        hours: "Tue-Sat 10am-5pm, Sun 1pm-5pm",
-      },
-      {
-        name: "Augustino's Italian Eatery",
-        description:
-          "Family-owned Italian restaurant serving handmade pasta, wood-fired pizza, and imported wines.",
-        address: "1109 Broad St, Augusta, GA 30901",
-        latitude: 33.4742,
-        longitude: -81.9749,
-        category: "restaurant",
-        phone: "(706) 860-4445",
-        hours: "Mon-Sat 11am-9pm",
-      },
-      {
-        name: "Pexcho's",
-        description:
-          "Popular downtown sandwich and taco shop with fast casual service and outdoor seating.",
-        address: "850 Broad St, Augusta, GA 30901",
-        latitude: 33.4733,
-        longitude: -81.9712,
-        category: "restaurant",
-        phone: "(706) 723-5151",
-        hours: "Mon-Fri 11am-3pm",
-      },
-      {
-        name: "Artist Row on Broad",
-        description:
-          "Gallery and artisan marketplace featuring local artists, pottery, jewelry, and handmade goods.",
-        address: "1168 Broad St, Augusta, GA 30901",
-        latitude: 33.4743,
-        longitude: -81.9756,
-        category: "retail",
-        phone: "(706) 955-0202",
-        hours: "Tue-Sat 11am-6pm",
-      },
-    ],
+  // --- Businesses (individual creates to capture IDs) ---
+  const bollWeevil = await prisma.business.create({
+    data: {
+      name: "Boll Weevil Café & Sweetery",
+      description:
+        "Iconic downtown café known for its massive desserts and Southern comfort food.",
+      address: "10 James Brown Blvd, Augusta, GA 30901",
+      latitude: 33.4741,
+      longitude: -81.9694,
+      category: "restaurant",
+      phone: "(706) 722-7772",
+      website: "https://www.bollweevilcafe.com",
+      hours: "Mon-Sat 11am-10pm",
+      facebookUrl: "https://www.facebook.com/bollweevilcafe",
+    },
   });
-  console.log(`  Created ${businesses.count} businesses.`);
+
+  const craftVine = await prisma.business.create({
+    data: {
+      name: "Craft & Vine",
+      description:
+        "Upscale gastropub featuring craft cocktails and a rotating menu of locally sourced dishes.",
+      address: "1002 Broad St, Augusta, GA 30901",
+      latitude: 33.4738,
+      longitude: -81.9735,
+      category: "bar",
+      phone: "(706) 364-5300",
+      hours: "Tue-Sat 5pm-12am",
+    },
+  });
+
+  const frogHollow = await prisma.business.create({
+    data: {
+      name: "Frog Hollow Tavern",
+      description:
+        "Farm-to-table dining in a historic building with an award-winning wine list.",
+      address: "1282 Broad St, Augusta, GA 30901",
+      latitude: 33.4744,
+      longitude: -81.9761,
+      category: "restaurant",
+      phone: "(706) 364-6906",
+      website: "https://www.froghollowtavern.com",
+      hours: "Tue-Sat 5:30pm-10pm",
+      facebookUrl: "https://www.facebook.com/froghollowtavern",
+    },
+  });
+
+  const soulBar = await prisma.business.create({
+    data: {
+      name: "Soul Bar",
+      description:
+        "Live music venue and bar in the heart of Broad Street's entertainment district.",
+      address: "984 Broad St, Augusta, GA 30901",
+      latitude: 33.4736,
+      longitude: -81.9728,
+      category: "entertainment",
+      phone: "(706) 481-9540",
+      hours: "Wed-Sat 7pm-2am",
+      instagramUrl: "https://www.instagram.com/soulbaraugusta",
+    },
+  });
+
+  const bookTavern = await prisma.business.create({
+    data: {
+      name: "The Book Tavern",
+      description:
+        "Independent bookstore offering new and used books, local authors, and community events.",
+      address: "226 8th St, Augusta, GA 30901",
+      latitude: 33.4750,
+      longitude: -81.9720,
+      category: "retail",
+      phone: "(706) 828-3600",
+      hours: "Mon-Sat 10am-6pm, Sun 12pm-5pm",
+      facebookUrl: "https://www.facebook.com/thebooktavern",
+      instagramUrl: "https://www.instagram.com/booktavernaugusta",
+    },
+  });
+
+  const newMoon = await prisma.business.create({
+    data: {
+      name: "New Moon Café",
+      description:
+        "Eclectic café with live music, art displays, and a diverse menu including vegetarian options.",
+      address: "1036 Broad St, Augusta, GA 30901",
+      latitude: 33.4740,
+      longitude: -81.9742,
+      category: "restaurant",
+      phone: "(706) 725-5005",
+      hours: "Mon-Sat 11am-10pm",
+      instagramUrl: "https://www.instagram.com/newmooncafe",
+    },
+  });
+
+  const augustaMuseum = await prisma.business.create({
+    data: {
+      name: "Augusta Museum of History",
+      description:
+        "Museum showcasing Augusta's rich history from Native Americans to the present, including a James Brown exhibit.",
+      address: "560 Reynolds St, Augusta, GA 30901",
+      latitude: 33.4758,
+      longitude: -81.9700,
+      category: "entertainment",
+      phone: "(706) 722-8454",
+      website: "https://www.augustamuseum.org",
+      hours: "Tue-Sat 10am-5pm, Sun 1pm-5pm",
+    },
+  });
+
+  const augustinos = await prisma.business.create({
+    data: {
+      name: "Augustino's Italian Eatery",
+      description:
+        "Family-owned Italian restaurant serving handmade pasta, wood-fired pizza, and imported wines.",
+      address: "1109 Broad St, Augusta, GA 30901",
+      latitude: 33.4742,
+      longitude: -81.9749,
+      category: "restaurant",
+      phone: "(706) 860-4445",
+      hours: "Mon-Sat 11am-9pm",
+    },
+  });
+
+  const pexchos = await prisma.business.create({
+    data: {
+      name: "Pexcho's",
+      description:
+        "Popular downtown sandwich and taco shop with fast casual service and outdoor seating.",
+      address: "850 Broad St, Augusta, GA 30901",
+      latitude: 33.4733,
+      longitude: -81.9712,
+      category: "restaurant",
+      phone: "(706) 723-5151",
+      hours: "Mon-Fri 11am-3pm",
+    },
+  });
+
+  const artistRow = await prisma.business.create({
+    data: {
+      name: "Artist Row on Broad",
+      description:
+        "Gallery and artisan marketplace featuring local artists, pottery, jewelry, and handmade goods.",
+      address: "1168 Broad St, Augusta, GA 30901",
+      latitude: 33.4743,
+      longitude: -81.9756,
+      category: "retail",
+      phone: "(706) 955-0202",
+      hours: "Tue-Sat 11am-6pm",
+    },
+  });
+
+  console.log("  Created 10 businesses.");
 
   // --- Events ---
 
@@ -289,6 +322,7 @@ async function main() {
         startTime: "7:00 PM",
         endTime: "10:00 PM",
         impactLevel: "low",
+        businessId: soulBar.id,
         polygon: JSON.stringify([
           [33.4733, -81.9733],
           [33.4739, -81.9733],
@@ -309,6 +343,7 @@ async function main() {
         startTime: "2:00 PM",
         endTime: "4:00 PM",
         impactLevel: "low",
+        businessId: augustaMuseum.id,
       },
       {
         title: "Food Truck Rally",
@@ -353,6 +388,73 @@ async function main() {
     ],
   });
   console.log(`  Created ${events.count} events.`);
+
+  // --- Social Posts ---
+  const DAY = 86_400_000;
+  const now = Date.now();
+
+  await prisma.socialPost.createMany({
+    data: [
+      // The Book Tavern
+      {
+        businessId: bookTavern.id,
+        platform: "facebook",
+        postId: "bt-fb-001",
+        content:
+          "Join us this Saturday for our monthly book club meeting! We're reading 'The Midnight Library' by Matt Haig. 📚",
+        linkUrl: "https://www.facebook.com/thebooktavern/posts/001",
+        postedAt: new Date(now - 2 * DAY),
+      },
+      {
+        businessId: bookTavern.id,
+        platform: "facebook",
+        postId: "bt-fb-002",
+        content:
+          "New arrivals this week! Come check out our curated selection of Southern fiction and local authors.",
+        linkUrl: "https://www.facebook.com/thebooktavern/posts/002",
+        postedAt: new Date(now - 5 * DAY),
+      },
+      {
+        businessId: bookTavern.id,
+        platform: "instagram",
+        postId: "bt-ig-001",
+        content:
+          "Beautiful afternoon at the tavern. Stop by and find your next great read! 📖☀️",
+        imageUrl: "https://www.instagram.com/p/booktavern001/media",
+        postedAt: new Date(now - 1 * DAY),
+      },
+      // Soul Bar
+      {
+        businessId: soulBar.id,
+        platform: "instagram",
+        postId: "sb-ig-001",
+        content:
+          "Tonight's lineup: The Augusta Blues Collective starts at 9PM. $10 cover. Don't miss it! 🎵",
+        imageUrl: "https://www.instagram.com/p/soulbar001/media",
+        postedAt: new Date(now),
+      },
+      {
+        businessId: soulBar.id,
+        platform: "facebook",
+        postId: "sb-fb-001",
+        content:
+          "We're hiring! Looking for experienced bartenders and door staff. DM us or stop by.",
+        linkUrl: "https://www.facebook.com/soulbaraugusta/posts/001",
+        postedAt: new Date(now - 3 * DAY),
+      },
+      // Boll Weevil Café
+      {
+        businessId: bollWeevil.id,
+        platform: "facebook",
+        postId: "bw-fb-001",
+        content:
+          "Happy Easter from everyone at the Boll Weevil! Enjoy our special holiday menu this weekend. 🐣🍰",
+        linkUrl: "https://www.facebook.com/bollweevilcafe/posts/001",
+        postedAt: new Date(now - 4 * DAY),
+      },
+    ],
+  });
+  console.log("  Created 6 social posts.");
 
   console.log("✅ Seed complete!");
 }

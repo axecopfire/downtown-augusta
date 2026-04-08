@@ -49,24 +49,41 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ errors }, { status: 400 });
   }
 
-  const event = await prisma.event.create({
-    data: {
-      title: body.title as string,
-      description: (body.description as string) ?? null,
-      address: body.address as string,
-      latitude: body.latitude as number,
-      longitude: body.longitude as number,
-      category: (body.category as string) ?? "community",
-      startDate: new Date(body.startDate as string),
-      endDate: body.endDate ? new Date(body.endDate as string) : null,
-      startTime: (body.startTime as string) ?? null,
-      endTime: (body.endTime as string) ?? null,
-      impactLevel: (body.impactLevel as string) ?? "medium",
-      imageUrl: (body.imageUrl as string) ?? null,
-      website: (body.website as string) ?? null,
-      polygon: body.polygon != null ? (body.polygon as string) : null,
-    },
-  });
+  try {
+    // If businessId provided, verify the business exists
+    if (body.businessId != null) {
+      if (typeof body.businessId !== "string") {
+        return NextResponse.json({ error: "businessId must be a string" }, { status: 400 });
+      }
+      const business = await prisma.business.findUnique({ where: { id: body.businessId as string } });
+      if (!business) {
+        return NextResponse.json({ error: "Business not found" }, { status: 404 });
+      }
+    }
 
-  return NextResponse.json(event, { status: 201 });
+    const event = await prisma.event.create({
+      data: {
+        title: body.title as string,
+        description: (body.description as string) ?? null,
+        address: body.address as string,
+        latitude: body.latitude as number,
+        longitude: body.longitude as number,
+        category: (body.category as string) ?? "community",
+        startDate: new Date(body.startDate as string),
+        endDate: body.endDate ? new Date(body.endDate as string) : null,
+        startTime: (body.startTime as string) ?? null,
+        endTime: (body.endTime as string) ?? null,
+        impactLevel: (body.impactLevel as string) ?? "medium",
+        imageUrl: (body.imageUrl as string) ?? null,
+        website: (body.website as string) ?? null,
+        polygon: body.polygon != null ? (body.polygon as string) : null,
+        businessId: (body.businessId as string) ?? null,
+      },
+    });
+
+    return NextResponse.json(event, { status: 201 });
+  } catch (err) {
+    const message = err instanceof Error ? err.message : "Failed to create event";
+    return NextResponse.json({ error: message }, { status: 500 });
+  }
 }

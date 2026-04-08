@@ -2,8 +2,9 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Calendar, MapPin, AlertTriangle, Plus, X, Square } from "lucide-react";
+import { Calendar, MapPin, AlertTriangle } from "lucide-react";
 import { EVENT_CATEGORIES, IMPACT_LEVELS } from "@/lib/constants";
+import PolygonDrawerWrapper from "@/components/map/PolygonDrawerWrapper";
 import type { Event } from "@/generated/prisma/client";
 
 type PolygonPoint = { lat: string; lng: string };
@@ -290,121 +291,34 @@ export default function EventForm({ initialData, onSubmit }: EventFormProps) {
       <div className="rounded-lg border border-gray-200 bg-gray-50 p-4 space-y-3">
         <div>
           <label className={labelClass}>Impact Area (Polygon)</label>
-          <p className="text-xs text-gray-500">
-            Define the area affected by this event. Add at least 3 coordinate
-            points to create a polygon.
+          <p className="text-xs text-gray-500 mb-2">
+            Click on the map to draw the affected area. At least 3 points are needed.
           </p>
         </div>
-
-        {form.polygonPoints.length > 0 && (
-          <div className="space-y-2">
-            {form.polygonPoints.map((pt, i) => (
-              <div key={i} className="grid grid-cols-[auto_1fr_1fr_auto] items-center gap-2">
-                <span className="text-xs font-medium text-gray-500 w-6 text-right">
-                  {i + 1}.
-                </span>
-                <div>
-                  <input
-                    type="number"
-                    step="any"
-                    placeholder="Latitude"
-                    value={pt.lat}
-                    onChange={(e) => {
-                      const pts = [...form.polygonPoints];
-                      pts[i] = { ...pts[i], lat: e.target.value };
-                      setForm((prev) => ({ ...prev, polygonPoints: pts }));
-                    }}
-                    className={inputClass}
-                  />
-                  {errors[`polygon_${i}_lat`] && (
-                    <p className="mt-0.5 text-xs text-red-600">
-                      {errors[`polygon_${i}_lat`]}
-                    </p>
-                  )}
-                </div>
-                <div>
-                  <input
-                    type="number"
-                    step="any"
-                    placeholder="Longitude"
-                    value={pt.lng}
-                    onChange={(e) => {
-                      const pts = [...form.polygonPoints];
-                      pts[i] = { ...pts[i], lng: e.target.value };
-                      setForm((prev) => ({ ...prev, polygonPoints: pts }));
-                    }}
-                    className={inputClass}
-                  />
-                  {errors[`polygon_${i}_lng`] && (
-                    <p className="mt-0.5 text-xs text-red-600">
-                      {errors[`polygon_${i}_lng`]}
-                    </p>
-                  )}
-                </div>
-                <button
-                  type="button"
-                  onClick={() => {
-                    const pts = form.polygonPoints.filter((_, j) => j !== i);
-                    setForm((prev) => ({ ...prev, polygonPoints: pts }));
-                  }}
-                  className="rounded p-1 text-gray-400 hover:bg-red-50 hover:text-red-600 transition-colors"
-                  aria-label={`Remove point ${i + 1}`}
-                >
-                  <X className="h-4 w-4" />
-                </button>
-              </div>
-            ))}
-          </div>
-        )}
-
+        <PolygonDrawerWrapper
+          points={form.polygonPoints
+            .filter(p => p.lat && p.lng && !isNaN(Number(p.lat)) && !isNaN(Number(p.lng)))
+            .map(p => ({ lat: parseFloat(p.lat), lng: parseFloat(p.lng) }))}
+          onPointsChange={(points) => {
+            setForm(prev => ({
+              ...prev,
+              polygonPoints: points.map(p => ({ lat: String(p.lat), lng: String(p.lng) }))
+            }));
+          }}
+          center={form.latitude && form.longitude && !isNaN(Number(form.latitude)) && !isNaN(Number(form.longitude))
+            ? { lat: parseFloat(form.latitude), lng: parseFloat(form.longitude) }
+            : undefined}
+        />
         {form.polygonPoints.length > 0 && form.polygonPoints.length < 3 && (
           <p className="text-xs text-amber-600">
-            At least 3 points are needed to form a polygon.
+            {form.polygonPoints.length} point(s) placed — at least 3 needed for a polygon.
           </p>
         )}
-
-        <div className="flex gap-2">
-          <button
-            type="button"
-            onClick={() =>
-              setForm((prev) => ({
-                ...prev,
-                polygonPoints: [...prev.polygonPoints, { lat: "", lng: "" }],
-              }))
-            }
-            className="inline-flex items-center gap-1 rounded-lg border border-gray-300 px-3 py-1.5 text-xs font-medium text-gray-700 hover:bg-white transition-colors"
-          >
-            <Plus className="h-3.5 w-3.5" />
-            Add Point
-          </button>
-
-          {form.latitude &&
-            form.longitude &&
-            !isNaN(Number(form.latitude)) &&
-            !isNaN(Number(form.longitude)) && (
-              <button
-                type="button"
-                onClick={() => {
-                  const lat = parseFloat(form.latitude);
-                  const lng = parseFloat(form.longitude);
-                  const d = 0.001;
-                  setForm((prev) => ({
-                    ...prev,
-                    polygonPoints: [
-                      { lat: String(lat + d), lng: String(lng - d) },
-                      { lat: String(lat + d), lng: String(lng + d) },
-                      { lat: String(lat - d), lng: String(lng + d) },
-                      { lat: String(lat - d), lng: String(lng - d) },
-                    ],
-                  }));
-                }}
-                className="inline-flex items-center gap-1 rounded-lg border border-gray-300 px-3 py-1.5 text-xs font-medium text-gray-700 hover:bg-white transition-colors"
-              >
-                <Square className="h-3.5 w-3.5" />
-                Generate Rectangle
-              </button>
-            )}
-        </div>
+        {form.polygonPoints.length >= 3 && (
+          <p className="text-xs text-green-600">
+            ✓ {form.polygonPoints.length} points — polygon complete
+          </p>
+        )}
       </div>
 
       {/* Category */}

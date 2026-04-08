@@ -8,37 +8,71 @@ datasource db {
 }
 
 model Business {
-  id          String   @id @default(cuid())
-  name        String
-  description String?
-  address     String
-  latitude    Float
-  longitude   Float
-  category    String   @default("general")
-  phone       String?
-  website     String?
-  hours       String?
-  imageUrl    String?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id               String          @id @default(cuid())
+  name             String
+  description      String?
+  address          String
+  latitude         Float
+  longitude        Float
+  category         String          @default("general")
+  phone            String?
+  website          String?
+  hours            String?
+  imageUrl         String?
+  facebookUrl      String?
+  instagramUrl     String?
+  createdAt        DateTime        @default(now())
+  updatedAt        DateTime        @updatedAt
+  events           Event[]
+  eventBusinesses  EventBusiness[]
+  socialPosts      SocialPost[]
 }
 
 model Event {
-  id          String   @id @default(cuid())
+  id          String    @id @default(cuid())
   title       String
   description String?
   address     String
   latitude    Float
   longitude   Float
-  polygon     String?  // JSON array of [lat,lng] coordinate pairs defining the affected area
-  category    String   @default("community")
+  polygon     String?   // JSON array of [lat,lng] coordinate pairs defining the affected area
+  category    String    @default("community")
   startDate   DateTime
   endDate     DateTime?
   startTime   String?
   endTime     String?
-  impactLevel String   @default("medium") // low, medium, high - foot traffic impact
+  impactLevel String    @default("medium") // low, medium, high - foot traffic impact
   imageUrl    String?
   website     String?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  businessId      String?
+  business        Business?       @relation(fields: [businessId], references: [id], onDelete: SetNull)
+  eventBusinesses EventBusiness[]
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+}
+
+model SocialPost {
+  id         String   @id @default(cuid())
+  businessId String
+  business   Business @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  platform   String   // "facebook", "instagram", "twitter", etc.
+  postId     String?  // external platform post ID for deduplication
+  content    String?
+  imageUrl   String?
+  linkUrl    String?
+  postedAt   DateTime
+  fetchedAt  DateTime @default(now())
+  createdAt  DateTime @default(now())
+
+  @@unique([platform, postId])
+}
+
+model EventBusiness {
+  eventId    String
+  businessId String
+  event      Event    @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  business   Business @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  createdAt  DateTime @default(now())
+
+  @@id([eventId, businessId])
 }

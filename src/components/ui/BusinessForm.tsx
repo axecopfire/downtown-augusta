@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { Globe, Camera } from "lucide-react";
 import type { Business } from "@/generated/prisma/client";
 import { BUSINESS_CATEGORIES } from "@/lib/constants";
 
@@ -15,6 +16,8 @@ type BusinessFormData = {
   website: string;
   hours: string;
   imageUrl: string;
+  facebookUrl: string;
+  instagramUrl: string;
 };
 
 function toFormData(business?: Business | null): BusinessFormData {
@@ -30,6 +33,8 @@ function toFormData(business?: Business | null): BusinessFormData {
       website: "",
       hours: "",
       imageUrl: "",
+      facebookUrl: "",
+      instagramUrl: "",
     };
   }
   return {
@@ -43,6 +48,8 @@ function toFormData(business?: Business | null): BusinessFormData {
     website: business.website ?? "",
     hours: business.hours ?? "",
     imageUrl: business.imageUrl ?? "",
+    facebookUrl: business.facebookUrl ?? "",
+    instagramUrl: business.instagramUrl ?? "",
   };
 }
 
@@ -257,6 +264,43 @@ export default function BusinessForm({
           className={inputClass}
           placeholder="https://example.com/image.jpg"
         />
+      </div>
+
+      {/* Social Media */}
+      <div className="border-t border-gray-200 pt-6">
+        <h3 className="text-sm font-semibold text-gray-900 mb-4 flex items-center gap-2">
+          Social Media
+        </h3>
+        <div className="space-y-4">
+          <div>
+            <label htmlFor="facebookUrl" className={labelClass}>
+              <Globe className="inline h-4 w-4 mr-1 text-blue-600" />
+              Facebook URL
+            </label>
+            <input
+              id="facebookUrl"
+              type="url"
+              value={formData.facebookUrl}
+              onChange={(e) => update("facebookUrl", e.target.value)}
+              className={inputClass}
+              placeholder="https://facebook.com/yourbusiness"
+            />
+          </div>
+          <div>
+            <label htmlFor="instagramUrl" className={labelClass}>
+              <Camera className="inline h-4 w-4 mr-1 text-pink-600" />
+              Instagram URL
+            </label>
+            <input
+              id="instagramUrl"
+              type="url"
+              value={formData.instagramUrl}
+              onChange={(e) => update("instagramUrl", e.target.value)}
+              className={inputClass}
+              placeholder="https://instagram.com/yourbusiness"
+            />
+          </div>
+        </div>
       </div>
 
       <div className="pt-2">

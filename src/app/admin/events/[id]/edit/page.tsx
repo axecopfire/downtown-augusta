@@ -39,7 +39,8 @@ export default function EditEventPage() {
 
     if (!res.ok) {
       const body = await res.json().catch(() => null);
-      throw new Error(body?.error ?? "Failed to update event");
+      const detail = body?.error || body?.errors?.join(", ") || `Server error (${res.status})`;
+      throw new Error(detail);
     }
   }
 

@@ -94,10 +94,18 @@ type SerializedSocialPost = {
   createdAt: string;
 };
 
+type SerializedEventBrief = {
+  id: string;
+  title: string;
+  startDate: string;
+  startTime: string | null;
+};
+
 type SerializedBusiness = Omit<Business, "createdAt" | "updatedAt"> & {
   createdAt: string;
   updatedAt: string;
   socialPosts?: SerializedSocialPost[];
+  events?: SerializedEventBrief[];
 };
 
 type SerializedEvent = Omit<Event, "createdAt" | "updatedAt" | "startDate" | "endDate"> & {
