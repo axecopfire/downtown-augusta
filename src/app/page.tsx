@@ -1,65 +1,94 @@
-import Image from "next/image";
+import Link from "next/link";
+import { Calendar, Map, Store } from "lucide-react";
+
+const stats = [
+  { label: "Upcoming Events", value: "30+" },
+  { label: "Local Businesses", value: "120+" },
+  { label: "City Blocks", value: "15" },
+];
+
+const features = [
+  {
+    icon: Calendar,
+    title: "Upcoming Events",
+    description:
+      "Stay in the loop with concerts, markets, festivals, and community gatherings happening downtown.",
+  },
+  {
+    icon: Store,
+    title: "Local Businesses",
+    description:
+      "Browse restaurants, shops, galleries, and services — all on one interactive map.",
+  },
+  {
+    icon: Map,
+    title: "Interactive Map",
+    description:
+      "See everything at a glance. Filter by category, date, or distance and get directions instantly.",
+  },
+];
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
+    <div className="flex flex-1 flex-col">
+      {/* Hero */}
+      <section className="bg-gradient-to-br from-teal-800 to-teal-950 px-4 py-24 text-center text-white sm:py-32">
+        <div className="mx-auto max-w-3xl">
+          <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl">
+            Discover Downtown Augusta
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+          <p className="mt-4 text-lg text-teal-100 sm:text-xl">
+            Explore events, restaurants, shops, and more across Augusta&apos;s
+            vibrant downtown district — all in one place.
           </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+          <Link
+            href="/map"
+            className="mt-8 inline-flex items-center gap-2 rounded-full bg-amber-500 px-6 py-3 text-sm font-semibold text-white shadow-lg transition hover:bg-amber-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-400"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+            <Map className="h-4 w-4" />
+            Explore the Map
+          </Link>
         </div>
-      </main>
+      </section>
+
+      {/* Stats */}
+      <section className="border-b border-gray-200 bg-white">
+        <div className="mx-auto grid max-w-5xl grid-cols-1 divide-y divide-gray-200 sm:grid-cols-3 sm:divide-x sm:divide-y-0">
+          {stats.map((s) => (
+            <div key={s.label} className="px-6 py-8 text-center">
+              <p className="text-3xl font-bold text-teal-700">{s.value}</p>
+              <p className="mt-1 text-sm text-gray-500">{s.label}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Features */}
+      <section className="flex-1 bg-gray-50 px-4 py-16 sm:py-20">
+        <div className="mx-auto max-w-5xl">
+          <h2 className="text-center text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
+            Everything you need to explore downtown
+          </h2>
+          <div className="mt-12 grid gap-8 sm:grid-cols-3">
+            {features.map((f) => (
+              <div
+                key={f.title}
+                className="rounded-xl bg-white p-6 shadow-sm ring-1 ring-gray-200"
+              >
+                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-teal-50">
+                  <f.icon className="h-5 w-5 text-teal-700" />
+                </div>
+                <h3 className="mt-4 text-lg font-semibold text-gray-900">
+                  {f.title}
+                </h3>
+                <p className="mt-2 text-sm leading-relaxed text-gray-600">
+                  {f.description}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
     </div>
   );
 }

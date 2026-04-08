@@ -1,0 +1,44 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model Business {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  address     String
+  latitude    Float
+  longitude   Float
+  category    String   @default("general")
+  phone       String?
+  website     String?
+  hours       String?
+  imageUrl    String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Event {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  address     String
+  latitude    Float
+  longitude   Float
+  polygon     String?  // JSON array of [lat,lng] coordinate pairs defining the affected area
+  category    String   @default("community")
+  startDate   DateTime
+  endDate     DateTime?
+  startTime   String?
+  endTime     String?
+  impactLevel String   @default("medium") // low, medium, high - foot traffic impact
+  imageUrl    String?
+  website     String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
