@@ -386,6 +386,172 @@ async function main() {
           [33.4738, -81.974],
         ]),
       },
+
+      // --- Real Augusta annual events ---
+      {
+        title: "Masters Tournament Week",
+        description:
+          "The Masters brings hundreds of thousands of visitors to Augusta each April. Downtown restaurants, hotels, and shops see massive foot traffic all week.",
+        address: "Downtown Augusta, GA 30901",
+        latitude: 33.4741,
+        longitude: -81.9725,
+        category: "sports",
+        startDate: new Date("2026-04-06"),
+        endDate: new Date("2026-04-12"),
+        startTime: "8:00 AM",
+        endTime: "7:00 PM",
+        impactLevel: "high",
+        website: "https://www.masters.com",
+        polygon: JSON.stringify([
+          [33.4730, -81.9770],
+          [33.4760, -81.9770],
+          [33.4760, -81.9680],
+          [33.4730, -81.9680],
+        ]),
+      },
+      {
+        title: "Augusta Christmas Parade",
+        description:
+          "Annual holiday parade down Broad Street with floats, marching bands, and Santa Claus. A beloved Augusta tradition drawing thousands of spectators.",
+        address: "Broad Street, Augusta, GA 30901",
+        latitude: 33.4740,
+        longitude: -81.9740,
+        category: "community",
+        startDate: new Date("2026-12-05"),
+        endDate: new Date("2026-12-05"),
+        startTime: "3:00 PM",
+        endTime: "6:00 PM",
+        impactLevel: "high",
+        polygon: JSON.stringify([
+          [33.4733, -81.9775],
+          [33.4747, -81.9775],
+          [33.4747, -81.9700],
+          [33.4733, -81.9700],
+        ]),
+      },
+      {
+        title: "July 4th Fireworks on the Riverwalk",
+        description:
+          "Augusta's Independence Day celebration with live entertainment, food vendors, and a spectacular fireworks display over the Savannah River.",
+        address: "Riverwalk Augusta, Augusta, GA 30901",
+        latitude: 33.4770,
+        longitude: -81.9695,
+        category: "festival",
+        startDate: new Date("2026-07-04"),
+        endDate: new Date("2026-07-04"),
+        startTime: "5:00 PM",
+        endTime: "10:00 PM",
+        impactLevel: "high",
+        polygon: JSON.stringify([
+          [33.4762, -81.9730],
+          [33.4780, -81.9730],
+          [33.4780, -81.9665],
+          [33.4762, -81.9665],
+        ]),
+      },
+      {
+        title: "St. Patrick's Day on Broad Street",
+        description:
+          "Annual St. Patrick's Day street celebration with live Irish music, green beer, and festive crowds along Broad Street's bars and restaurants.",
+        address: "Broad Street, Augusta, GA 30901",
+        latitude: 33.4738,
+        longitude: -81.9735,
+        category: "festival",
+        startDate: new Date("2027-03-17"),
+        endDate: new Date("2027-03-17"),
+        startTime: "12:00 PM",
+        endTime: "11:00 PM",
+        impactLevel: "medium",
+        polygon: JSON.stringify([
+          [33.4733, -81.9760],
+          [33.4745, -81.9760],
+          [33.4745, -81.9710],
+          [33.4733, -81.9710],
+        ]),
+      },
+      {
+        title: "Augusta Pride Festival",
+        description:
+          "Annual Pride celebration in downtown Augusta with a parade, live performances, vendors, and community resources.",
+        address: "Downtown Augusta, GA 30901",
+        latitude: 33.4745,
+        longitude: -81.9720,
+        category: "festival",
+        startDate: new Date("2026-06-13"),
+        endDate: new Date("2026-06-14"),
+        startTime: "10:00 AM",
+        endTime: "8:00 PM",
+        impactLevel: "medium",
+        polygon: JSON.stringify([
+          [33.4738, -81.9740],
+          [33.4752, -81.9740],
+          [33.4752, -81.9700],
+          [33.4738, -81.9700],
+        ]),
+      },
+      {
+        title: "Olde Town Historic Candlelight Tour",
+        description:
+          "Tour of beautifully decorated historic homes in Augusta's Olde Town neighborhood during the holiday season, lit by candlelight.",
+        address: "Olde Town, Augusta, GA 30901",
+        latitude: 33.4720,
+        longitude: -81.9680,
+        category: "community",
+        startDate: new Date("2026-12-12"),
+        endDate: new Date("2026-12-13"),
+        startTime: "5:00 PM",
+        endTime: "9:00 PM",
+        impactLevel: "low",
+      },
+      {
+        title: "Jessye Norman International Vocal Competition",
+        description:
+          "Prestigious vocal competition honoring Augusta native Jessye Norman, held at the historic Miller Theater with performances from young opera singers worldwide.",
+        address: "Miller Theater, 708 Broad St, Augusta, GA 30901",
+        latitude: 33.4735,
+        longitude: -81.9715,
+        category: "concert",
+        startDate: new Date("2026-10-16"),
+        endDate: new Date("2026-10-18"),
+        startTime: "7:00 PM",
+        endTime: "10:00 PM",
+        impactLevel: "low",
+        website: "https://www.millertheateraugusta.com",
+      },
+      {
+        title: "Augusta Market at the Mill",
+        description:
+          "Year-round Saturday market at Enterprise Mill featuring local produce, baked goods, handmade crafts, and prepared foods from Augusta-area vendors.",
+        address: "Enterprise Mill, 1450 Greene St, Augusta, GA 30901",
+        latitude: 33.4728,
+        longitude: -81.9780,
+        category: "market",
+        startDate: new Date("2026-05-16"),
+        endDate: new Date("2026-05-16"),
+        startTime: "9:00 AM",
+        endTime: "1:00 PM",
+        impactLevel: "low",
+      },
+      {
+        title: "New Year's Eve Block Party on Broad",
+        description:
+          "Ring in the New Year on Broad Street with live bands, DJs, food trucks, and a midnight countdown and fireworks over downtown Augusta.",
+        address: "Broad Street, Augusta, GA 30901",
+        latitude: 33.4740,
+        longitude: -81.9738,
+        category: "festival",
+        startDate: new Date("2026-12-31"),
+        endDate: new Date("2027-01-01"),
+        startTime: "7:00 PM",
+        endTime: "1:00 AM",
+        impactLevel: "high",
+        polygon: JSON.stringify([
+          [33.4733, -81.9765],
+          [33.4748, -81.9765],
+          [33.4748, -81.9710],
+          [33.4733, -81.9710],
+        ]),
+      },
     ],
   });
   console.log(`  Created ${events.count} events.`);
@@ -468,6 +634,9 @@ async function main() {
   const saturdayMarket = allEvents.find((e) =>
     e.title.includes("Saturday Market"),
   );
+  const mastersWeek = allEvents.find((e) => e.title.includes("Masters Tournament"));
+  const stPatricks = allEvents.find((e) => e.title.includes("St. Patrick"));
+  const nyeBlockParty = allEvents.find((e) => e.title.includes("New Year"));
   const restaurants = allBusinesses.filter((b) =>
     ["restaurant", "bar"].includes(b.category),
   );
@@ -496,6 +665,34 @@ async function main() {
       .slice(0, 3)) {
       await prisma.eventBusiness.create({
         data: { eventId: saturdayMarket.id, businessId: biz.id },
+      });
+      ebCount++;
+    }
+  }
+  if (mastersWeek) {
+    for (const biz of restaurants.slice(0, 4)) {
+      await prisma.eventBusiness.create({
+        data: { eventId: mastersWeek.id, businessId: biz.id },
+      });
+      ebCount++;
+    }
+  }
+  if (stPatricks) {
+    for (const biz of allBusinesses
+      .filter((b) => ["bar", "restaurant"].includes(b.category))
+      .slice(0, 4)) {
+      await prisma.eventBusiness.create({
+        data: { eventId: stPatricks.id, businessId: biz.id },
+      });
+      ebCount++;
+    }
+  }
+  if (nyeBlockParty) {
+    for (const biz of allBusinesses
+      .filter((b) => ["bar", "entertainment"].includes(b.category))
+      .slice(0, 3)) {
+      await prisma.eventBusiness.create({
+        data: { eventId: nyeBlockParty.id, businessId: biz.id },
       });
       ebCount++;
     }
