@@ -101,20 +101,13 @@ const CATEGORY_EMOJI: Record<string, string> = {
 };
 
 function createCategoryIcon(category: string) {
-  const color = CATEGORY_COLORS[category] ?? CATEGORY_COLORS.general;
   const emoji = CATEGORY_EMOJI[category] ?? CATEGORY_EMOJI.general;
   return L.divIcon({
     className: "",
-    html: `
-      <svg width="25" height="41" viewBox="0 0 25 41" xmlns="http://www.w3.org/2000/svg">
-        <path d="M12.5 0C5.6 0 0 5.6 0 12.5C0 21.9 12.5 41 12.5 41S25 21.9 25 12.5C25 5.6 19.4 0 12.5 0Z" fill="${color}" stroke="#fff" stroke-width="1.5"/>
-        <circle cx="12.5" cy="12.5" r="5.5" fill="#fff"/>
-      </svg>
-      <span style="position:absolute;top:3px;left:4px;font-size:11px;line-height:1;pointer-events:none;">${emoji}</span>
-    `,
-    iconSize: [25, 41],
-    iconAnchor: [12, 41],
-    popupAnchor: [0, -35],
+    html: `<span style="font-size:28px;line-height:1;display:block;text-align:center;filter:drop-shadow(0 1px 2px rgba(0,0,0,0.3));">${emoji}</span>`,
+    iconSize: [28, 28],
+    iconAnchor: [14, 28],
+    popupAnchor: [0, -24],
   });
 }
 

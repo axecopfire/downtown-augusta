@@ -27,11 +27,8 @@ export function Legend() {
         </p>
         {BUSINESS_CATEGORIES.map((cat) => (
           <div key={cat.key} className="flex items-center gap-2 mb-0.5">
-            <span
-              className="inline-block h-3 w-3 rounded-full shrink-0"
-              style={{ backgroundColor: cat.color }}
-            />
-            <span>{cat.emoji} {cat.label}</span>
+            <span className="text-base leading-none shrink-0">{cat.emoji}</span>
+            <span>{cat.label}</span>
           </div>
         ))}
       </div>
