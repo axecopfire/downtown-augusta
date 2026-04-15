@@ -198,6 +198,7 @@ async function main() {
         startTime: "5:00 PM",
         endTime: "9:00 PM",
         impactLevel: "medium",
+        website: "https://augustaarts.com",
         polygon: JSON.stringify([
           [33.4735, -81.976],
           [33.4745, -81.976],
@@ -281,6 +282,7 @@ async function main() {
         startTime: "8:00 AM",
         endTime: "12:00 PM",
         impactLevel: "low",
+        website: "https://www.theaugustamarket.com",
         polygon: JSON.stringify([
           [33.476, -81.9718],
           [33.477, -81.9718],
@@ -301,6 +303,7 @@ async function main() {
         startTime: "9:00 AM",
         endTime: "6:00 PM",
         impactLevel: "medium",
+        website: "http://augustasouthernnationals.org",
         polygon: JSON.stringify([
           [33.4768, -81.972],
           [33.4778, -81.972],
@@ -344,6 +347,7 @@ async function main() {
         startTime: "2:00 PM",
         endTime: "4:00 PM",
         impactLevel: "low",
+        website: "https://www.augustamuseum.org",
         businessId: augustaMuseum.id,
       },
       {
@@ -359,6 +363,7 @@ async function main() {
         startTime: "11:00 AM",
         endTime: "8:00 PM",
         impactLevel: "medium",
+        website: "https://www.visitaugusta.com/events/",
         polygon: JSON.stringify([
           [33.4751, -81.9716],
           [33.4759, -81.9716],
@@ -379,6 +384,7 @@ async function main() {
         startTime: "10:00 AM",
         endTime: "4:00 PM",
         impactLevel: "medium",
+        website: "https://augustaarts.com",
         polygon: JSON.stringify([
           [33.4738, -81.9762],
           [33.4746, -81.9762],
@@ -422,6 +428,7 @@ async function main() {
         startTime: "3:00 PM",
         endTime: "6:00 PM",
         impactLevel: "high",
+        website: "https://www.augustaga.gov",
         polygon: JSON.stringify([
           [33.4733, -81.9775],
           [33.4747, -81.9775],
@@ -442,6 +449,7 @@ async function main() {
         startTime: "5:00 PM",
         endTime: "10:00 PM",
         impactLevel: "high",
+        website: "https://www.visitaugusta.com/events/",
         polygon: JSON.stringify([
           [33.4762, -81.9730],
           [33.4780, -81.9730],
@@ -462,6 +470,7 @@ async function main() {
         startTime: "12:00 PM",
         endTime: "11:00 PM",
         impactLevel: "medium",
+        website: "https://www.visitaugusta.com/events/",
         polygon: JSON.stringify([
           [33.4733, -81.9760],
           [33.4745, -81.9760],
@@ -482,6 +491,7 @@ async function main() {
         startTime: "10:00 AM",
         endTime: "8:00 PM",
         impactLevel: "medium",
+        website: "https://www.prideaugusta.org",
         polygon: JSON.stringify([
           [33.4738, -81.9740],
           [33.4752, -81.9740],
@@ -502,6 +512,7 @@ async function main() {
         startTime: "5:00 PM",
         endTime: "9:00 PM",
         impactLevel: "low",
+        website: "https://www.historicaugusta.org",
       },
       {
         title: "Jessye Norman International Vocal Competition",
@@ -531,6 +542,7 @@ async function main() {
         startTime: "9:00 AM",
         endTime: "1:00 PM",
         impactLevel: "low",
+        website: "https://www.theaugustamarket.com",
       },
       {
         title: "New Year's Eve Block Party on Broad",
@@ -545,6 +557,7 @@ async function main() {
         startTime: "7:00 PM",
         endTime: "1:00 AM",
         impactLevel: "high",
+        website: "https://www.visitaugusta.com/events/",
         polygon: JSON.stringify([
           [33.4733, -81.9765],
           [33.4748, -81.9765],
