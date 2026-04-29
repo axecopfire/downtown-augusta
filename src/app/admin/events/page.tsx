@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { format } from "date-fns";
-import { Calendar, MapPin, Plus } from "lucide-react";
+import { Calendar, Copy, MapPin, Plus } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 import type { ImpactLevel } from "@/lib/constants";
 import ImpactBadge from "@/components/ui/ImpactBadge";
@@ -90,6 +90,13 @@ export default async function AdminEventsPage() {
                   </td>
                   <td className="px-4 py-3 text-right">
                     <div className="flex items-center justify-end gap-2">
+                      <Link
+                        href={`/admin/events/new?duplicate=${event.id}`}
+                        className="inline-flex items-center gap-1 rounded-md border border-gray-300 px-3 py-1.5 text-xs font-medium text-gray-700 hover:bg-gray-50 transition-colors"
+                        title="Duplicate event"
+                      >
+                        <Copy className="h-3 w-3" />
+                      </Link>
                       <Link
                         href={`/admin/events/${event.id}/edit`}
                         className="inline-flex items-center gap-1 rounded-md border border-gray-300 px-3 py-1.5 text-xs font-medium text-gray-700 hover:bg-gray-50 transition-colors"

@@ -1,12 +1,46 @@
 "use client";
 
-import { Suspense } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import EventForm from "@/components/ui/EventForm";
+import type { Event } from "@/generated/prisma/client";
 
 function NewEventContent() {
   const searchParams = useSearchParams();
   const businessId = searchParams.get("businessId");
+  const duplicateId = searchParams.get("duplicate");
+
+  const [sourceEvent, setSourceEvent] = useState<Event | null>(null);
+  const [loading, setLoading] = useState(!!duplicateId);
+
+  useEffect(() => {
+    if (!duplicateId) return;
+    async function loadSource() {
+      try {
+        const res = await fetch(`/api/events/${duplicateId}`);
+        if (res.ok) {
+          const event = await res.json();
+          // Clear dates so the admin enters new ones for the duplicate
+          setSourceEvent({
+            ...event,
+            id: undefined,
+            title: `Copy of ${event.title}`,
+            startDate: null,
+            endDate: null,
+            startTime: null,
+            endTime: null,
+            createdAt: undefined,
+            updatedAt: undefined,
+          });
+        }
+      } catch {
+        // Proceed without pre-fill if fetch fails
+      } finally {
+        setLoading(false);
+      }
+    }
+    loadSource();
+  }, [duplicateId]);
 
   async function handleCreate(data: Record<string, unknown>) {
     const payload = { ...data };
@@ -28,6 +62,10 @@ function NewEventContent() {
     }
   }
 
+  if (loading) {
+    return <p className="text-gray-500">Loading event data…</p>;
+  }
+
   return (
     <>
       {businessId && (
@@ -35,7 +73,15 @@ function NewEventContent() {
           This event will be linked to the business automatically.
         </div>
       )}
-      <EventForm onSubmit={handleCreate} />
+      {duplicateId && (
+        <div className="mb-4 rounded-md bg-blue-50 border border-blue-200 p-3 text-sm text-blue-800">
+          Duplicating event — venue, description, and polygon copied. Please set new dates.
+        </div>
+      )}
+      <EventForm
+        initialData={sourceEvent ?? undefined}
+        onSubmit={handleCreate}
+      />
     </>
   );
 }

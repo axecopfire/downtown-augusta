@@ -66,9 +66,22 @@ export default function EditEventPage() {
     );
   }
 
+  function handleDuplicate() {
+    router.push(`/admin/events/new?duplicate=${params.id}`);
+  }
+
   return (
     <div className="mx-auto max-w-2xl px-4 py-8">
-      <h1 className="text-2xl font-bold text-gray-900 mb-6">Edit Event</h1>
+      <div className="flex items-center justify-between mb-6">
+        <h1 className="text-2xl font-bold text-gray-900">Edit Event</h1>
+        <button
+          type="button"
+          onClick={handleDuplicate}
+          className="inline-flex items-center gap-1.5 rounded-md bg-gray-100 px-3 py-1.5 text-sm font-medium text-gray-700 hover:bg-gray-200 transition-colors"
+        >
+          Duplicate Event
+        </button>
+      </div>
       <EventForm initialData={event} onSubmit={handleUpdate} />
     </div>
   );
